@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 
 export default function SignUpForm() {
@@ -15,11 +16,18 @@ export default function SignUpForm() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({ username, password }),
+            
         }); 
         
         const result = await response.json();
         console.log(result);
-    
+
+        if (response.ok) {
+            (result.token);
+
+              } else {
+            setError("Signup failed");
+          }
 
     } catch (error) {
       setError(error.message);
@@ -57,4 +65,3 @@ export default function SignUpForm() {
     </>
   );
 }
-
