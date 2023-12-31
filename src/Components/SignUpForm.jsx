@@ -1,5 +1,5 @@
-
 import { useState } from "react";
+import { userSchema } from "../Validations/UserValidation"
 
 export default function SignUpForm() {
   const [username, setUsername] = useState("");
@@ -8,7 +8,12 @@ export default function SignUpForm() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-
+  
+    const validationResult = userSchema.validate({ username, password });
+    if (validationResult.error) {
+      setError(validationResult.error.message);
+      return; 
+    }
     try {
         const response = await fetch("https://fsa-jwt-practice.herokuapp.com/signup", {
             method: "POST", 
